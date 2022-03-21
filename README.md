@@ -5,7 +5,11 @@
 
 ## Available Scripts
 
-In the project directory, you can run:
+## Make shure you have NodeJS installed
+
+### `https://nodejs.org/es/`
+
+In the project directory run:
 
 ### `npm install`
 
