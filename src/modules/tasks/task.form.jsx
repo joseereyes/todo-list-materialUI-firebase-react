@@ -7,10 +7,10 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { Button } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { tasksStyles } from "./styles"
-import { create } from "./tasks.functions"
+import { create, updateTask } from "./tasks.functions"
 import { format } from 'date-fns'
 
-export default function FormTask({ action, ...props }) {
+export default function FormTask({ taskTopUpdate,setTaskToUpdate, action, ...props }) {
 
     const {
         register,
@@ -23,8 +23,13 @@ export default function FormTask({ action, ...props }) {
     const [taskDate, setTaskDate] = React.useState(new Date())
     setValue("date", format(taskDate, "dd-MMMM-yyyy").toString())
 
+
+    React.useEffect(() => {
+        taskTopUpdate && reset({ "date": taskTopUpdate.date, description: taskTopUpdate.description, title: taskTopUpdate.title })
+    }, [reset, taskTopUpdate])
+
     return (
-        <Box onSubmit={handleSubmit((data) => { create(data,action); reset({ title: "", description: "" }) })} component="form" sx={{ ...tasksStyles.createTask.boxForm }}>
+        <Box onSubmit={handleSubmit((data) => { taskTopUpdate ? updateTask(taskTopUpdate.id, data) : create(data,action); reset({ title: "", description: "" });setTaskToUpdate(null) })} component="form" sx={{ ...tasksStyles.createTask.boxForm }}>
 
             <TextField
                 label="Titulo"
@@ -32,15 +37,14 @@ export default function FormTask({ action, ...props }) {
                 sx={{ margin: "15px 0px 0px 0px" }}
                 focused
                 fullWidth
-                placeholder='Conferencia'
+                placeholder="Conferencia."
                 {...register("title", {
                     required: true,
-                    maxLength: 35,
-                    pattern: /^[A-Za-z]+$/i
+                    maxLength: 25
                 })}
             />
             {errors?.title?.type === "required" && <p style={{ ...tasksStyles.createTask.pErrors }}>El campo titulo es requerido</p>}
-            {errors?.title?.type === "maxLength" && <p style={{ ...tasksStyles.createTask.pErrors }}>El titulo no puede tener mas de 35 caracteres</p>}
+            {errors?.title?.type === "maxLength" && <p style={{ ...tasksStyles.createTask.pErrors }}>El titulo no puede tener mas de 22 caracteres</p>}
 
             <TextField
                 id="outlined-multiline-static"
@@ -50,7 +54,7 @@ export default function FormTask({ action, ...props }) {
                 fullWidth
                 rows={6}
                 focused
-                placeholder='Conferencia el lunes con la empresa.'
+                placeholder={`${taskTopUpdate ? (taskTopUpdate.description) : ("Conferencia el lunes con la empresa.")}`}
                 {...register("description")}
 
             />

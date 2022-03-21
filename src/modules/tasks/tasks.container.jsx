@@ -6,6 +6,7 @@ import { Card } from "@mui/material";
 import { Grid } from "@mui/material"
 import { tasksStyles } from "./styles";
 import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
 import { useTaskContext } from "./tasks.context";
 import FormTask from "./task.form";
 
@@ -21,6 +22,10 @@ export default function TasksContainer() {
     const handleForm = () => {
         showForm ? setShowForm(false) : setShowForm(true)
     }
+
+    const [taskTopUpdate, setTaskToUpdate] = useState(false)
+
+
 
     return (
         <Grid container spacing={2} style={{ ...tasksStyles.gridContainer }}>
@@ -42,18 +47,19 @@ export default function TasksContainer() {
 
                 <Grid sx={{ ...tasksStyles.gridAddTaskIcon }}>
 
-                    <AddIcon
-                        color="primary"
-                        sx={{ ...tasksStyles.addTaskIcon }}
-                        onClick={handleForm}
-                    />
+
+                    <Fab color="primary" aria-label="add"
+                        onClick={handleForm}>
+                        <AddIcon />
+                    </Fab>
 
                 </Grid>
 
                 {showForm &&
                     <Grid sx={{ ...tasksStyles.gridAddTaskIcon }}>
-                        <FormTask/>
-                    </Grid>}
+                        <FormTask action={handleForm} taskTopUpdate={taskTopUpdate} setTaskToUpdate={setTaskToUpdate} />
+                    </Grid>
+                }
             </Grid>
 
             <Grid item xs={3} sm={3} md={3} lg={3} sx={{ ...tasksStyles.gridOneCard }}>
@@ -65,7 +71,7 @@ export default function TasksContainer() {
                 </CardHeader>
 
                 {pendingTasks && pendingTasks.map((item, i) => {
-                    return <TaskCard key={i} card={item} />
+                    return <TaskCard key={i} card={item} action={() => { setShowForm(true); setTaskToUpdate({ ...item }) }} />
                 })}
 
             </Grid>
@@ -78,7 +84,7 @@ export default function TasksContainer() {
                 >
                 </CardHeader>
                 {processingTasks && processingTasks.map((item, i) => {
-                    return <TaskCard key={i} card={item} />
+                      return <TaskCard key={i} card={item} action={() => { setShowForm(true); setTaskToUpdate({ ...item }) }} />
                 })}
 
             </Grid>
@@ -91,7 +97,7 @@ export default function TasksContainer() {
                 </CardHeader>
 
                 {finishedTasks && finishedTasks.map((item, i) => {
-                    return <TaskCard key={i} card={item} />
+                      return <TaskCard key={i} card={item} action={() => { setShowForm(true); setTaskToUpdate({ ...item }) }} />
                 })}
 
             </Grid>

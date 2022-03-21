@@ -31,7 +31,7 @@ const ExpandMore = styled((props) => {
 }));
 
 
-export default function TaskCard({ card, ...props }) {
+export default function TaskCard({ data,action,card, ...props }) {
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -52,7 +52,7 @@ export default function TaskCard({ card, ...props }) {
                 action={
                     <>
                         <IconButton aria-label="settings"
-                            onClick={() => { delTask(card.id) }}
+                            onClick={() => { action() }}
                         >
                             <ModeEditIcon color="primary" />
                         </IconButton>
@@ -84,23 +84,17 @@ export default function TaskCard({ card, ...props }) {
                         variant="contained"
                         endIcon={<StartIcon />}
                         size="small"
+                        style={{ background: 'radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,121,88,1) 0%, rgba(0,212,255,1) 100%)' }}
                         onClick={() => {
-
                             updateTask(card.id,
                                 {
                                     status: `${card.status === "pending" ? ("processing") : (card.status === "processing" && ("finished"))}`
-                                    
                                 })
                         }}
-
-
-
-                        style={{ background: 'radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,121,88,1) 0%, rgba(0,212,255,1) 100%)' }}
                     >
                         {
                             card.status === "pending" ? ("Iniciar") : (card.status === "processing" && ("Finalizar"))
                         }
-
                     </Button>
                 }
 

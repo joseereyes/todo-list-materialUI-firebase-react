@@ -18,7 +18,6 @@ const delTask = async (id) => {
 }
 
 const updateTask = async (id, object) => {
-
     db.child("Tasks/" + id).update({ ...object })
 
 }
