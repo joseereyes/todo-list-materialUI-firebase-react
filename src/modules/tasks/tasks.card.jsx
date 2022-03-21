@@ -8,10 +8,15 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { red } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { delTask } from "./tasks.functions"
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import StartIcon from '@mui/icons-material/Start';
+
+import { delTask, updateTask } from "./tasks.functions"
+
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -45,11 +50,19 @@ export default function TaskCard({ card, ...props }) {
                     </Avatar>
                 }
                 action={
-                    <IconButton aria-label="settings"
-                        onClick={()=>{delTask(card.id)}}
-                    >
-                        <DeleteOutlinedIcon color="primary" />
-                    </IconButton>
+                    <>
+                        <IconButton aria-label="settings"
+                            onClick={() => { delTask(card.id) }}
+                        >
+                            <ModeEditIcon color="primary" />
+                        </IconButton>
+
+                        <IconButton aria-label="settings"
+                            onClick={() => { delTask(card.id) }}
+                        >
+                            <DeleteOutlinedIcon color="primary" />
+                        </IconButton>
+                    </>
                 }
                 title={card.title}
                 subheader={card.date}
@@ -64,6 +77,33 @@ export default function TaskCard({ card, ...props }) {
                 >
                     <ExpandMoreIcon />
                 </ExpandMore>
+
+                {
+                    card.status !== "finished" &&
+                    <Button
+                        variant="contained"
+                        endIcon={<StartIcon />}
+                        size="small"
+                        onClick={() => {
+
+                            updateTask(card.id,
+                                {
+                                    status: `${card.status === "pending" ? ("processing") : (card.status === "processing" && ("finished"))}`
+                                    
+                                })
+                        }}
+
+
+
+                        style={{ background: 'radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,121,88,1) 0%, rgba(0,212,255,1) 100%)' }}
+                    >
+                        {
+                            card.status === "pending" ? ("Iniciar") : (card.status === "processing" && ("Finalizar"))
+                        }
+
+                    </Button>
+                }
+
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
