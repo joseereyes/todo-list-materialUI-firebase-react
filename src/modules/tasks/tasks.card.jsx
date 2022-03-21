@@ -14,9 +14,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import StartIcon from '@mui/icons-material/Start';
-
 import { delTask, updateTask } from "./tasks.functions"
 
+
+ 
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -31,7 +32,7 @@ const ExpandMore = styled((props) => {
 }));
 
 
-export default function TaskCard({ data,action,card, ...props }) {
+export default function TaskCard({ data, action, card, ...props }) {
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -49,6 +50,7 @@ export default function TaskCard({ data,action,card, ...props }) {
                         R
                     </Avatar>
                 }
+
                 action={
                     <>
                         <IconButton aria-label="settings"
@@ -64,8 +66,10 @@ export default function TaskCard({ data,action,card, ...props }) {
                         </IconButton>
                     </>
                 }
+              
                 title={card.title}
                 subheader={card.date}
+              
             />
             <CardActions disableSpacing>
                 Ver detalles...

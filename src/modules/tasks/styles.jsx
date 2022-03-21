@@ -12,10 +12,10 @@ const tasksStyles = {
 
     },
     cardHeaderBackground: {
-        finished: 'linear-gradient(180deg, rgba(60,65,45,1) 0%, rgba(19,64,50,0.6026785714285714) 100%)',
-        progress: 'linear-gradient(180deg, rgba(199,251,63,1) 0%, rgba(87,85,85,1) 100%)',
-        stopped: 'linear-gradient(352deg, rgba(251,63,63,1) 0%, rgba(87,85,85,1) 89%)',
-        allTasks: 'linear-gradient(5deg, rgba(63,94,251,1) 0%, rgba(87,85,85,1) 89%)'
+        finished: '#9254C8',
+        progress: '#9254C8',
+        stopped: '#9254C8',
+        allTasks: '#9254C8'
     },
     gridContainer: {
         minWidth: 1024,

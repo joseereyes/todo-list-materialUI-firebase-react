@@ -9,6 +9,8 @@ import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import { useTaskContext } from "./tasks.context";
 import FormTask from "./task.form";
+import Typography from '@mui/material/Typography';
+
 
 export default function TasksContainer() {
 
@@ -34,7 +36,18 @@ export default function TasksContainer() {
                 <Card sx={{ marginBottom: 3, }}>
                     <CardHeader
                         style={{ ...tasksStyles.cardHeader, background: tasksStyles.cardHeaderBackground.allTasks }}
-                        title="Listado de tareas"
+                        title={
+                            <Typography
+                                sx={
+                                    {
+                                        color: "#FFFFFF",
+                                        fontSize: 20
+                                    }
+                                }
+                            >
+                                Listado de tareas
+                            </Typography>
+                        }
                     >
                     </CardHeader>
                     <CardMedia
@@ -66,7 +79,18 @@ export default function TasksContainer() {
 
                 <CardHeader
                     style={{ ...tasksStyles.cardHeader, background: tasksStyles.cardHeaderBackground.stopped }}
-                    title="Tareas pendientes"
+                    title={
+                        <Typography
+                            sx={
+                                {
+                                    color: "#FFFFFF",
+                                    fontSize: 20
+                                }
+                            }
+                        >
+                           Tareas pendientes
+                        </Typography>
+                    }
                 >
                 </CardHeader>
 
@@ -80,11 +104,23 @@ export default function TasksContainer() {
 
                 <CardHeader
                     style={{ ...tasksStyles.cardHeader, background: tasksStyles.cardHeaderBackground.progress }}
-                    title="Tareas en processo"
+
+                    title={
+                        <Typography
+                            sx={
+                                {
+                                    color: "#FFFFFF",
+                                    fontSize: 20
+                                }
+                            }
+                        >
+                           Tareas en proceso
+                        </Typography>
+                    }
                 >
                 </CardHeader>
                 {processingTasks && processingTasks.map((item, i) => {
-                      return <TaskCard key={i} card={item} action={() => { setShowForm(true); setTaskToUpdate({ ...item }) }} />
+                    return <TaskCard key={i} card={item} action={() => { setShowForm(true); setTaskToUpdate({ ...item }) }} />
                 })}
 
             </Grid>
@@ -92,12 +128,24 @@ export default function TasksContainer() {
 
                 <CardHeader
                     style={{ ...tasksStyles.cardHeader, background: tasksStyles.cardHeaderBackground.finished }}
-                    title="Tareas Finalizadas"
+
+                    title={
+                        <Typography
+                            sx={
+                                {
+                                    color: "#FFFFFF",
+                                    fontSize: 20
+                                }
+                            }
+                        >
+                          Tareas Finalizadas
+                        </Typography>
+                    }
                 >
                 </CardHeader>
 
                 {finishedTasks && finishedTasks.map((item, i) => {
-                      return <TaskCard key={i} card={item} action={() => { setShowForm(true); setTaskToUpdate({ ...item }) }} />
+                    return <TaskCard key={i} card={item} action={() => { setShowForm(true); setTaskToUpdate({ ...item }) }} />
                 })}
 
             </Grid>
